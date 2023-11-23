@@ -1,3 +1,5 @@
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -79,6 +81,9 @@ public abstract class Block {
                 
                 //Regex information source Java SE Documentation: https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html
                 String[] rowValues = rowInput.replaceAll("\\s+", "").split(","); //Parses single line String of row input values into individual cell values. Whitespace removed from input by matching with regex and replacing with empty string. String then split into elements using comma(",") as delimeter.   
+                
+                //If a cell value is empty, it is still treated as a cell value entered which will then be evaluated as an invalid value. 
+                if (rowInput.trim().endsWith(",")){rowValues=Arrays.copyOf(rowValues, rowValues.length+1); rowValues[rowValues.length-1]="";}
                 
                 if (rowValues.length!=size){ //If row is not of correct length:
                     this.formatValid = false;
