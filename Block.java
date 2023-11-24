@@ -17,15 +17,13 @@ public abstract class Block {
     private boolean structureValid; // Flag indicating if block has valid structure
     private boolean formatValid; // Flag indicating if block has valid format
     private String errorDescription; // Error message to output to user
-
     // #endregion
 
     /**
      * Super constructor for abstract Block class. Called explicitly by derived
      * classes to initialise fields
      * 
-     * @param size   Size of square block, i.e. size = number of elements per row =
-     *               number of elements per column
+     * @param size   Size of square block, i.e. size = number of elements per row = number of elements per column             
      * @param reader Reference to active Scanner object to read user input
      */
     public Block(int size, Scanner reader) {
@@ -81,29 +79,17 @@ public abstract class Block {
 
         // Iterate over each row of cells (outer level arrays in 2D cells array)
         for (Cell[] row : this.cells) {
-            if (this.reader.hasNextLine()) { // Check there is input before attempting to read (required for stacscheck
-                                             // tests/ input read from file)
+            if (this.reader.hasNextLine()) { // Check there is input before attempting to read (required for stacscheck tests/ input read from file)
 
                 String rowInput = this.reader.nextLine();
 
                 // Regex information source Java SE Documentation:
                 // https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html
-                String[] rowValues = rowInput.replaceAll("\\s+", "").split(",", -1); // Parses single line String of row
-                                                                                     // input values into individual
-                                                                                     // cell values. Whitespace removed
-                                                                                     // from input by matching with
-                                                                                     // regex and replacing with empty
-                                                                                     // string. String then split into
-                                                                                     // elements using comma(",") as
-                                                                                     // delimeter. Empty/whitespace
-                                                                                     // entries separated by commas are
-                                                                                     // still treated as cell value
-                                                                                     // entries, even if trailing - row
-                                                                                     // containing empty entries will
-                                                                                     // have length including empty
-                                                                                     // entries but empty values will
-                                                                                     // not be considered valid.
-
+                String[] rowValues = rowInput.replaceAll("\\s+", "").split(",", -1); // Parses single line String of row input values into individual cell values.
+                                                                                                            // Whitespace removed from input by matching with regex and replaced with empty string.
+                                                                                                            // String then split into elements using comma(",") as delimeter.
+                                                                                                            // Empty/whitespace entries separated by commas are still treated as cell value entries, even if trailing.
+                                                                                                            // Rows containing empty entries will have length including empty entries but empty values will not be considered valid.                                                                                   
                 if (rowValues.length != size) { // If row is not of correct length:
                     this.formatValid = false;
                     this.errorDescription = "Invalid format: number of cells in row.";
@@ -112,8 +98,7 @@ public abstract class Block {
 
                 // Check cell values valid and create new cells
                 for (int j = 0; j < row.length; j++) {
-                    Cell newCell = this.getNewCell(rowValues[j]); // Add new cell with entered value - value potentially
-                                                                  // invalid
+                    Cell newCell = this.getNewCell(rowValues[j]); // Add new cell with entered value - value potentially invalid
                     if (!newCell.isCellValueValid()) { // If entered value is invalid
                         this.formatValid = false;
                         this.errorDescription = "Invalid format: value: " + newCell.getValue() + ".";
@@ -170,8 +155,7 @@ public abstract class Block {
             if (!this.columns[i].getIsValid()) { // If column contains repeated values
                 this.structureValid = false;
                 this.errorDescription = "Valid format, invalid structure: " + this.columns[i].getFirstDuplicate()
-                        + " repeated in column " + (i + 1) + ".\n"; // In the case of multiple duplicate values, only
-                                                                    // the first is displayed
+                        + " repeated in column " + (i + 1) + ".\n"; // In the case of multiple duplicate values, only the first is displayed
                 return; // Do not check for further structure errors
             }
         }

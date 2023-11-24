@@ -6,20 +6,20 @@ import java.util.ArrayList;
 public abstract class Line {
 
     // #region FIELDS
-    private boolean isValid;// Flag to store validity, updated as lines processed. Columns and blocks should
-                            // only be checked if all rows valid however use of flag means we do not need to
-                            // process separately.
+    private boolean isValid;// Flag to store validity, updated as lines processed. 
+                            // Columns and blocks should only be checked if all rows valid
+                            // Use of flag means we do not need to reprocess columns and block separately.
 
     // ArrayList information source Java SE Documentation:
     // https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html
-    private ArrayList<String> duplicateValues; // Array list used to store first duplicate value encountered - not
-                                               // necessary to use ArrayList but helps in scalability if in in future
-                                               // versions all duplicate elements should be reported
+    private ArrayList<String> duplicateValues; // Array list used to store first duplicate value encountered.
+                                               // Not necessary to use ArrayList but helps in scalability if in in future versions all duplicate elements should be reported
 
     // Bit Field information source Wikipedia, Bit Field:
     // https://en.wikipedia.org/wiki/Bit_field
-    private int bitField; // Bit field with flags representing valid values: 1 indicates value for index
-                          // is present in line, 0 indicates value for index is not present in line
+    private int bitField; // Bit field with flags representing valid values: 
+                          // 1 indicates value for index is present in line
+                          // 0 indicates value for index is not present in line
     // #endregion
 
     public boolean getIsValid() {
